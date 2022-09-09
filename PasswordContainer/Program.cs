@@ -2,6 +2,7 @@
 {
      class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             App app = new App();

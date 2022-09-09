@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+
 
 namespace PasswordContainer
 {
@@ -28,6 +30,10 @@ namespace PasswordContainer
                     case 'S':
                         ShowTheCatalogue();
                         break;
+                    case 'C':
+                        SelectThePassword(TakeTheInput());
+
+                        break;
                     default:
                         Console.WriteLine("no action matched with this key");
                         break;
@@ -39,9 +45,9 @@ namespace PasswordContainer
         public Profile AddNewPassword()
         {
             Console.WriteLine("Write the name of the wanted service");
-            var name = Console.ReadLine();
+            string name = Console.ReadLine();
             Console.WriteLine("Write the password");
-            var password = Console.ReadLine();
+            string password = Console.ReadLine();
             return new Profile(name, password);
 
         }
@@ -60,7 +66,38 @@ namespace PasswordContainer
             
             Console.WriteLine("A - ADD A NEW PASSWORD");
             Console.WriteLine("S - SHOW ALL THE CATALOGUE");
+            Console.WriteLine("C - SELECT ONE SERVICE AND COPY THE PASSWORD");
             Console.WriteLine("E - EXIT TO THIS PROGRAM");
+        }
+        private int TakeTheInput() 
+        {
+            Console.WriteLine("type the index of your desired service");
+            char input;
+
+            input = Console.ReadLine()[0];
+            int index = (int)Char.GetNumericValue(input);
+            return index;
+        }
+        private int SelectThePassword(int index) 
+        {
+            
+            for (int i = 0; i < Passwords.Count; i++)
+            {
+                if(index == (i + 1)) 
+                {
+                    Clipboard.SetText(Passwords[i].Password);
+                    return i;
+                    
+                }
+            }
+
+            return 0; 
+
+        }
+        private void CopyThePassword() 
+        {
+            //copierà la password in qualche modo
+            
         }
 
 
