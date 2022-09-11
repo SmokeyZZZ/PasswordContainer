@@ -11,13 +11,13 @@ namespace PasswordContainer
 {
     class App
     {
-        const string FILEPATH = "C:\\VS Projects\\PasswordContainer\\PasswordContainer\\src\\db.txt";
+        const string FILEPATH = "../../../db.txt";
         List<Profile> Passwords = new List<Profile>();
         
         
         public void Program()
         {
-            InitializePasswords();
+           InitializePasswords();
             char input;
             Console.WriteLine("WELCOME TO THE SMOKEY'S PASSWORD CONTAINER");
            
@@ -55,7 +55,7 @@ namespace PasswordContainer
         }
         public Profile AddNewPassword()
         {
-            StreamWriter sw = new StreamWriter(FILEPATH, true);
+            StreamWriter sw = new StreamWriter(FILEPATH,true);
             Console.WriteLine("Write the name of the wanted service");
             string name = Console.ReadLine();
             Console.WriteLine("Write the password");
@@ -110,13 +110,16 @@ namespace PasswordContainer
         private void InitializePasswords() 
         {
             List<string> fileLines = File.ReadAllLines(FILEPATH).ToList();
-            foreach(string line in fileLines) 
-            {
-               
-                string[] elements = line.Split(" ");
-                Passwords.Add(new Profile(elements[0], elements[1]));
+                foreach (string line in fileLines)
+                {
 
-            }
+                    if (!line.Equals(""))
+                    {
+                        string[] elements = line.Split(" ");
+                        Passwords.Add(new Profile(elements[0], elements[1]));
+                    }
+                }
+         
         }
     }
 }
